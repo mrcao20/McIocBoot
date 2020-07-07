@@ -27,6 +27,12 @@ HEADERS += \
     $$PWD/include/McIoc/BeanFactory/impl/McBeanReference.h \
     $$PWD/include/McIoc/BeanFactory/impl/McDefaultBeanFactory.h \
     $$PWD/include/McIoc/BeanFactory/impl/McMetaTypeId.h \
+    $$PWD/include/McIoc/BeanParserRepository/BeanParser/IMcBeanParser.h \
+    $$PWD/include/McIoc/BeanParserRepository/BeanParser/impl/XML/McAbstractXmlTagParser.h \
+    $$PWD/include/McIoc/BeanParserRepository/IMcBeanDefinitionBuilder.h \
+    $$PWD/include/McIoc/BeanParserRepository/IMcBeanDefinitionCreator.h \
+    $$PWD/include/McIoc/BeanParserRepository/IMcBeanParserRepository.h \
+    $$PWD/include/McIoc/BeanParserRepository/impl/McAbstractBeanParserRepository.h \
     $$PWD/include/McIoc/PropertyParser/IMcPropertyConverter.h \
     $$PWD/include/McIoc/PropertyParser/IMcPropertyParser.h \
     $$PWD/include/McIoc/PropertyParser/impl/McAbstarctPropertyConverter.h \
@@ -56,6 +62,8 @@ SOURCES += \
     $$PWD/src/BeanFactory/McBeanReference.cpp \
     $$PWD/src/BeanFactory/McDefaultBeanFactory.cpp \
     $$PWD/src/BeanFactory/McMetaTypeId.cpp \
+    $$PWD/src/BeanParserRepository/McAbstractBeanParserRepository.cpp \
+    $$PWD/src/BeanParserRepository/XML/McAbstractXmlTagParser.cpp \
     $$PWD/src/PropertyParser/McAbstarctPropertyConverter.cpp \
     $$PWD/src/PropertyParser/McAbstractPropertyParser.cpp \
     $$PWD/src/PropertyParser/McDefaultPropertyConverter.cpp \
