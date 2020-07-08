@@ -27,12 +27,13 @@ HEADERS += \
     $$PWD/include/McIoc/BeanFactory/impl/McBeanReference.h \
     $$PWD/include/McIoc/BeanFactory/impl/McDefaultBeanFactory.h \
     $$PWD/include/McIoc/BeanFactory/impl/McMetaTypeId.h \
-    $$PWD/include/McIoc/BeanParserRepository/BeanParser/IMcBeanParser.h \
-    $$PWD/include/McIoc/BeanParserRepository/BeanParser/impl/XML/McAbstractXmlTagParser.h \
-    $$PWD/include/McIoc/BeanParserRepository/IMcBeanDefinitionBuilder.h \
-    $$PWD/include/McIoc/BeanParserRepository/IMcBeanDefinitionCreator.h \
-    $$PWD/include/McIoc/BeanParserRepository/IMcBeanParserRepository.h \
-    $$PWD/include/McIoc/BeanParserRepository/impl/McAbstractBeanParserRepository.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/IMcBeanParser.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/IMcPrimaryBeanParserRepository.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/PrimaryBeanParser/IMcPrimaryBeanParser.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/PrimaryBeanParser/impl/McAbstractPrimaryXmlTagParser.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/PrimaryBeanParser/impl/McPropertyTagParser.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/impl/McAbstractPrimaryBeanParserRepository.h \
+    $$PWD/include/McIoc/PrimaryBeanParserRepository/impl/McPrimaryXmlBeanParserRepository.h \
     $$PWD/include/McIoc/PropertyParser/IMcPropertyConverter.h \
     $$PWD/include/McIoc/PropertyParser/IMcPropertyParser.h \
     $$PWD/include/McIoc/PropertyParser/impl/McAbstarctPropertyConverter.h \
@@ -64,8 +65,9 @@ SOURCES += \
     $$PWD/src/BeanFactory/McBeanReference.cpp \
     $$PWD/src/BeanFactory/McDefaultBeanFactory.cpp \
     $$PWD/src/BeanFactory/McMetaTypeId.cpp \
-    $$PWD/src/BeanParserRepository/McAbstractBeanParserRepository.cpp \
-    $$PWD/src/BeanParserRepository/XML/McAbstractXmlTagParser.cpp \
+    $$PWD/src/PrimaryBeanParserRepository/McAbstractPrimaryBeanParserRepository.cpp \
+    $$PWD/src/PrimaryBeanParserRepository/McPrimaryXmlBeanParserRepository.cpp \
+    $$PWD/src/PrimaryBeanParserRepository/PrimaryBeanParser/McAbstractPrimaryXmlTagParser.cpp \
     $$PWD/src/PropertyParser/McAbstarctPropertyConverter.cpp \
     $$PWD/src/PropertyParser/McAbstractPropertyParser.cpp \
     $$PWD/src/PropertyParser/McDefaultPropertyConverter.cpp \

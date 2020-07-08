@@ -64,10 +64,19 @@
 #define MC_BEANNAME "beanName"
 //!< Q_CLASSINFO
 
+//! 父标签
 #define MC_BEANS "beans"
 #define MC_BEAN "bean"
+//! 一级标签
 #define MC_PROPERTY "property"
 #define MC_CONNECT "connect"
+#define MC_CONSTRUCTOR "constructor"
+//! 二级标签
+#define MC_SEC_VALUE "value"
+#define MC_SEC_REF "ref"
+#define MC_SEC_LIST "list"
+#define MC_SEC_MAP "map"
+#define MC_SEC_BEAN "bean"
 
 #define MC_THIS "this"
 #define MC_SENDER "sender"

@@ -10,7 +10,7 @@ class QDomElement;
 QT_END_NAMESPACE
 
 MC_FORWARD_DECL_CLASS(IMcBeanDefinition)
-MC_FORWARD_DECL_CLASS(IMcPropertyParser)
+MC_FORWARD_DECL_CLASS(IMcPrimaryBeanParserRepository)
 
 MC_FORWARD_DECL_PRIVATE_DATA(McXmlBeanDefinitionReader)
 
@@ -20,10 +20,10 @@ class MCIOCCONTAINER_EXPORT McXmlBeanDefinitionReader : public McAbstractBeanDef
     using McAbstractBeanDefinitionReader::readBeanDefinition;
 public:
     explicit McXmlBeanDefinitionReader(
-        IMcPropertyParserConstPtrRef parser
+        IMcPrimaryBeanParserRepositoryConstPtrRef parser
         , QIODeviceConstPtrRef device, QObject *parent = nullptr);
     explicit McXmlBeanDefinitionReader(
-        IMcPropertyParserConstPtrRef parser
+        IMcPrimaryBeanParserRepositoryConstPtrRef parser
         , const QList<QIODevicePtr> &devices, QObject *parent = nullptr);
     virtual ~McXmlBeanDefinitionReader() override;
 

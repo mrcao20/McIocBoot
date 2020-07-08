@@ -9,17 +9,15 @@
 
 #include "McIoc/BeanFactory/IMcBeanDefinitionRegistry.h"
 #include "McIoc/BeanDefinition/impl/McRootBeanDefinition.h"
-#include "McIoc/BeanFactory/impl/McBeanReference.h"
-#include "McIoc/BeanFactory/impl/McBeanConnector.h"
-#include "McIoc/PropertyParser/IMcPropertyParser.h"
+#include "McIoc/PrimaryBeanParserRepository/IMcPrimaryBeanParserRepository.h"
 
 MC_DECL_PRIVATE_DATA(McXmlBeanDefinitionReader)
-IMcPropertyParserPtr parser;
+IMcPrimaryBeanParserRepositoryPtr parserRepository;
 QList<QIODevicePtr> devices;
 MC_DECL_PRIVATE_DATA_END
 
 McXmlBeanDefinitionReader::McXmlBeanDefinitionReader(
-        IMcPropertyParserConstPtrRef parser
+        IMcPrimaryBeanParserRepositoryConstPtrRef parser
         , QIODeviceConstPtrRef device
         , QObject *parent)
     : McXmlBeanDefinitionReader(parser, QList<QIODevicePtr>() << device, parent)
@@ -27,14 +25,14 @@ McXmlBeanDefinitionReader::McXmlBeanDefinitionReader(
 }
 
 McXmlBeanDefinitionReader::McXmlBeanDefinitionReader(
-        IMcPropertyParserConstPtrRef parser
+        IMcPrimaryBeanParserRepositoryConstPtrRef parser
         , const QList<QIODevicePtr> &devices
         , QObject *parent)
     : McAbstractBeanDefinitionReader(parent)
 {
     MC_NEW_PRIVATE_DATA(McXmlBeanDefinitionReader);
     
-    d->parser = parser;
+    d->parserRepository = parser;
     d->devices = devices;
 }
 
@@ -98,11 +96,28 @@ void McXmlBeanDefinitionReader::readBeanDefinition(const QDomNodeList &nodes) no
         //! 创建一个bean定义对象
         McRootBeanDefinitionPtr beanDefinition = McRootBeanDefinitionPtr::create();
         beanDefinition->setSingleton(isSingleton);
-        if(!parseBeanClass(ele, beanDefinition)) {
-            return;
+        if (ele.hasAttribute("class"))	//!< 如果指定的class，则通过class创建对象
+            //! 设置bean 定义对象的 全限定类名
+            beanDefinition->setClassName(ele.attribute("class"));
+        else if(ele.hasAttribute("plugin")){    //!< 如果指定的是plugin，则通过插件创建对象
+            QString pluginPath = ele.attribute("plugin");
+            pluginPath = QDir::toNativeSeparators(pluginPath);
+            if(pluginPath.startsWith(QString("%1%2").arg(".", QDir::separator()))
+                    || pluginPath.startsWith(QString("%1%2").arg("..", QDir::separator()))) {
+                pluginPath = qApp->applicationDirPath() + "/" + pluginPath;   //!< 补全为全路径
+            }
+            if(!QLibrary::isLibrary(pluginPath)){
+                qCritical() << pluginPath << "is not a plugin. please check!!!";
+                continue;
+            }
+            beanDefinition->setPluginPath(pluginPath);
+            beanDefinition->setSingleton(true);     //!< 插件必须是单例
+        }else{
+            qCritical("bean '%s' must be class or plugin, please check!!!\n", qPrintable(name));
+            continue;
         }
-		readBeanDefinition(ele.childNodes(), beanDefinition);
-		//! 向注册容器 添加bean名称和bean定义. 如果存在则替换
+        d->parserRepository->parseBean(QVariant::fromValue(ele.childNodes()), beanDefinition, registry());
+        //! 向注册容器 添加bean名称和bean定义. 如果存在则替换
 		registry()->registerBeanDefinition(name, beanDefinition);
 	}
 }
